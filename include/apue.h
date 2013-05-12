@@ -6,12 +6,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <signal.h>
 
 #define MAXLINE 4096
 
 void err_sys(const char *, ...);
 
 void err_quit(const char*, ...);
+
+void err_msg(const char*, ...);
 
 long open_max(void);
 
