@@ -1,4 +1,4 @@
-//Ğ­×÷½ø³ÌÊÇÒ»¸ö½ø³Ì£¬ÓëËüÏà¹ØµÄ»¹ÓĞÁíÒ»½ø³Ì£¬Õâ¸ö½ø³ÌÏòĞ­Í¬½ø³ÌµÄ±ê×¼ÊäÈëĞ´Êı¾İ£¬²¢´Ó±ê×¼Êä³ö¶ÁÈ¡Êı¾İ
+//åä½œè¿›ç¨‹æ˜¯ä¸€ä¸ªè¿›ç¨‹ï¼Œä¸å®ƒç›¸å…³çš„è¿˜æœ‰å¦ä¸€è¿›ç¨‹ï¼Œè¿™ä¸ªè¿›ç¨‹å‘ååŒè¿›ç¨‹çš„æ ‡å‡†è¾“å…¥å†™æ•°æ®ï¼Œå¹¶ä»æ ‡å‡†è¾“å‡ºè¯»å–æ•°æ®
 #include "../include/apue.h"
 
 static void sig_pipe(int);
@@ -9,12 +9,12 @@ int main()
     pid_t pid;
     char line[MAXLINE];
     
-    if(signal(SIGPIPE, sig_pipe) == SIG_ERR) //ÎªĞÅºÅSIGPIPE×¢²áĞÅºÅ´¦Àíº¯Êı
+    if(signal(SIGPIPE, sig_pipe) == SIG_ERR) //ä¸ºä¿¡å·SIGPIPEæ³¨å†Œä¿¡å·å¤„ç†å‡½æ•°
     {
         err_sys("signal error");
     }
     
-    if(pipe(fd1) < 0 || pipe(fd2) < 0) //Éú³ÉÁ½¸ö¹ÜµÀ£¬ÓÃÓÚË«ÏòÍ¨ĞÅ
+    if(pipe(fd1) < 0 || pipe(fd2) < 0) //ç”Ÿæˆä¸¤ä¸ªç®¡é“ï¼Œç”¨äºåŒå‘é€šä¿¡
     {
         err_sys("pipe error");
     }
@@ -23,20 +23,20 @@ int main()
     {
         err_sys("fork error");
     }
-    else if(pid>0) //¶ÔÓÚ¸¸½ø³Ì
+    else if(pid>0) //å¯¹äºçˆ¶è¿›ç¨‹
     {
-        close(fd1[0]); //¹Ø±Õ¹ÜµÀ£±µÄ¶Á¶Ë
-        close(fd2[1]); //¹Ø±Õ¹ÜÀí£²µÄĞ´¶Ë
+        close(fd1[0]); //å…³é—­ç®¡é“ï¼‘çš„è¯»ç«¯
+        close(fd2[1]); //å…³é—­ç®¡ç†ï¼’çš„å†™ç«¯
         
         while(fgets(line, MAXLINE, stdin) != NULL)
         {
             n = strlen(line);
-            if(write(fd1[1], line, n) != n) //¸¸½ø³ÌÏò¹ÜµÀ£±µÄĞ´¶ËĞ´Êı¾İ
+            if(write(fd1[1], line, n) != n) //çˆ¶è¿›ç¨‹å‘ç®¡é“ï¼‘çš„å†™ç«¯å†™æ•°æ®
             {
                 err_sys("read error to pipe");
             }
             
-            if((n=read(fd2[0], line, MAXLINE))<0) //¸¸½ø³ÌÏò¹ÜµÀ£²µÄ¶Á¶Ë¶ÁÊı¾İ
+            if((n=fread(fd2[0], line, MAXLINE))<0) //çˆ¶è¿›ç¨‹å‘ç®¡é“ï¼’çš„è¯»ç«¯è¯»æ•°æ®
             {
                 err_sys("read error from pipe"); 
             }
@@ -61,10 +61,10 @@ int main()
         
         exit(0);
     }
-    else //×Ó½ø³ÌµÄÊäÈëÊä³ö·Ö±ğÉèÎª±ê×¼ÊäÈëÊä³ö
+    else //å­è¿›ç¨‹çš„è¾“å…¥è¾“å‡ºåˆ†åˆ«è®¾ä¸ºæ ‡å‡†è¾“å…¥è¾“å‡º
     {
-        close(fd1[1]); //¹Ø±Õ¹ÜµÀ£±µÄĞ´¶Ë
-        close(fd2[0]); //¹Ø±Õ¹ÜÀí£²µÄ¶Á¶Ë
+        close(fd1[1]); //å…³é—­ç®¡é“ï¼‘çš„å†™ç«¯
+        close(fd2[0]); //å…³é—­ç®¡ç†ï¼’çš„è¯»ç«¯
         
         if(fd1[0] != STDIN_FILENO)
         {
