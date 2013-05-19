@@ -3,7 +3,8 @@
 #include <fcntl.h>
 #include <sys/wait.h>
 
-#define PAGER "${PAGER:-more}"
+//#define PAGER "${PAGER:-more}"
+#define PAGER "${PAGER:-lpfdsf}"
 
 static pid_t *childpid = NULL;
 

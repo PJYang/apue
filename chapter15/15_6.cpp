@@ -49,12 +49,12 @@ int main(int argc, char *argv[])
             err_sys("fgets error");
         }
         
-        close(fd[1]);
+        close(fd[1]); //必须要关闭，不然子进程不会结束
         
         if(waitpid(pid, NULL, 0) < 0) //等待子进程结束
         {
             err_sys("waitpid error");
-        }
+        }//如果注释掉，因为父进程提早退出，导致管道的读端也关闭了
         
         exit(0);
     }
