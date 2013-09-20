@@ -6,7 +6,7 @@ int
 initserver(int type, const struct sockaddr *addr, socklen_t alen, int qlen)
 {
     int fd;
-    int errr = 0;
+    int err = 0;
 
     if((fd=socket(addr->sa_family, type, 0)) < 0)
     {
@@ -16,7 +16,7 @@ initserver(int type, const struct sockaddr *addr, socklen_t alen, int qlen)
     if(bind(fd, addr, alen) < 0)
     {
         err = errno;
-        goto errout:
+        goto errout;
     }
 
     if(type==SOCK_STREAM || type==SOCK_SEQPACKET)

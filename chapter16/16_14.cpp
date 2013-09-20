@@ -44,11 +44,15 @@ int main(int argc, char* argv[])
     hint.ai_canonname = NULL;
     hint.ai_next = NULL;
 
-    if((err = getaddrinfo(argv[1], "ruptime", &hint, &ailist)) != 0)
+	//get the address info correspond to specified host-service, hind filled with
+	//the type we wanted, ailist is stored with return result, result may be mulple
+    if((err = getaddrinfo(argv[1], "ruptimed", &hint, &ailist)) != 0)
     {
         err_quit("getaddrinfo error: %s", gai_strerror(err));
     }
 
+	// once we got some addresses, we the create a socket, and connect it with the first 
+	// address we got, last we print the data received 
     for(aip=ailist; aip!=NULL; aip=aip->ai_next)
     {
         if((sockfd = socket(aip->ai_family, SOCK_STREAM, 0)) < 0)
