@@ -18,4 +18,6 @@ void err_msg(const char*, ...);
 
 long open_max(void);
 
+void daemonize(const char* cmd);
+
 #endif
